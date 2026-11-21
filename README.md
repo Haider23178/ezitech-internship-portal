@@ -1,70 +1,150 @@
-# Getting Started with Create React App
+Ezitech Internship Application System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based internship application portal with a Supabase backend. The system is designed to allow applicants to submit applications, upload resumes, and track their application status while HR administrators manage applications securely.
 
-## Available Scripts
+1. Technologies Used
 
-In the project directory, you can run:
+- React.js
+- JavaScript
+- HTML
+- CSS
+- Supabase
+- PostgreSQL
+- Supabase Storage
+- Node.js
+- Git and GitHub
 
-### `npm start`
+2. Database Design
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The Supabase backend contains three main tables:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Applicants
 
-### `npm test`
+Stores applicant information:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Applicant ID
+- User ID
+- Full Name
+- Email
+- Phone
+- University
+- Degree
+- Resume URL
+- Application Status
+- Created At
 
-### `npm run build`
+Resumes
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Stores resume file metadata:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Resume ID
+- Applicant ID
+- File Name
+- Storage Path
+- Uploaded At
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Status Logs
 
-### `npm run eject`
+Stores application status history:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Log ID
+- Applicant ID
+- Previous Status
+- New Status
+- Changed By
+- Changed At
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Entity Relationship Diagram (ERD)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Supabase Auth Users
+        |
+        | 1:1
+        |
+    Applicants
+        |
+        | 1:M
+        |
+   +----+----+
+   |         |
+ Resumes  Status Logs
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- One applicant can have multiple resume records.
+- One applicant can have multiple status history records.
+- An applicant account is linked to a Supabase Auth user.
 
-## Learn More
+4. Supabase Storage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+A private Storage bucket named "resumes" stores applicant resume PDFs.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Files are organized into folders using the applicant's authenticated user ID.
 
-### Code Splitting
+5. Security and RLS Policies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Row Level Security (RLS) is enabled on all three database tables.
 
-### Analyzing the Bundle Size
+- Applicants can view their own applicant records.
+- Applicants can submit their own applications.
+- Applicants can view and add their own resume metadata.
+- Applicants can view their own application status history.
+- Admins can manage all applicant, resume, and status records.
+- Admins can manage resume files.
+- Applicants can upload and download only their own resume files.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Admin access is identified using the "role" value in Supabase "app_metadata".
 
-### Making a Progressive Web App
+6. Sample Data
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+A Node.js script generates at least 10 sample applicant records.
 
-### Advanced Configuration
+Script location:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+scripts/seedApplicants.js
 
-### Deployment
+Run the script using:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+node scripts/seedApplicants.js
 
-### `npm run build` fails to minify
+The script uses local environment variables from ".env.seed". Never upload this file or the Supabase secret key to GitHub.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+7. Project Structure
+
+internship-portal/
+│
+├── public/
+├── src/
+├── scripts/
+│   └── seedApplicants.js
+├── supabase/
+│   ├── schema.sql
+│   └── policies.sql
+├── .env.seed
+├── .gitignore
+├── package.json
+└── README.md
+
+8. Local Setup
+
+1. Install Node.js.
+2. Clone the GitHub repository.
+3. Open the project folder in VS Code.
+4. Install dependencies:
+
+npm install
+
+5. Configure your Supabase credentials in the appropriate local environment files.
+6. Start the React application:
+
+npm start
+
+9. Task 1 Deliverables
+
+- Supabase database tables created.
+- Private resume Storage bucket configured.
+- Row Level Security policies created.
+- At least 10 sample applicant records generated.
+- SQL schema and policy files added to the repository.
+- README documentation updated.
+
+10. Security Note
+
+Never commit ".env.seed", ".env.local", Supabase secret keys, or service-role keys to GitHub.

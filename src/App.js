@@ -1,7 +1,21 @@
+import { supabase } from "./supabaseClient";
 import React from "react";
+
+
 import "./App.css";
 
 function App() {
+  const testConnection = async () => {
+    const { data, error } = await supabase
+      .from("applicants")
+      .select("*");
+
+    if (error) {
+      console.log("Supabase Error:", error.message);
+    } else {
+      console.log("Supabase Connected Successfully!", data);
+    }
+  };
   return (
     <div className="App">
       <nav className="navbar">
@@ -22,6 +36,9 @@ function App() {
         </p>
 
         <button>Apply for Internship</button>
+        <button onClick={testConnection}>
+  Test Supabase Connection
+</button>
       </section>
 
       <section className="features">
