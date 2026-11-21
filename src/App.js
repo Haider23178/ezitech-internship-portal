@@ -35,10 +35,13 @@ function App() {
           and track your application status.
         </p>
 
-        <button>Apply for Internship</button>
-        <button onClick={testConnection}>
-  Test Supabase Connection
-</button>
+       <div className="hero-buttons">
+  <button>Apply for Internship</button>
+
+  <button onClick={testConnection}>
+    Test Supabase Connection
+  </button>
+</div>
       </section>
 
       <section className="features">
