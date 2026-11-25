@@ -120,3 +120,295 @@ footer {
 .hero {
 text-align: center;
 }
+
+/* Application Form */
+.application-form {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.application-form h2 {
+    color: #1e3a5f;
+    margin-bottom: 10px;
+}
+
+.application-form h3 {
+    color: #2563eb;
+    margin-bottom: 20px;
+}
+
+.application-form input,
+.application-form select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.application-form input:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 5px rgba(37, 99, 235, 0.2);
+}
+
+/* Internship Application Form */
+.application-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 35px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.application-container h1 {
+  color: #142d4e;
+  margin-bottom: 15px;
+}
+
+.application-container h2 {
+  color: #2876a8;
+  margin-bottom: 20px;
+}
+
+.application-container p {
+  margin-bottom: 15px;
+}
+
+/* Form inputs */
+.application-container input:not([type="file"]) {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.application-container input:focus {
+  outline: none;
+  border-color: #2876a8;
+  box-shadow: 0 0 5px rgba(40, 118, 168, 0.3);
+}
+
+/* Form buttons */
+.application-container button {
+  padding: 12px 25px;
+  margin: 10px 8px 10px 0;
+  background: #2876a8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.application-container button:hover {
+  background: #142d4e;
+  transform: translateY(-2px);
+}
+
+/* Resume file input */
+.application-container input[type="file"] {
+  display: block;
+  margin: 20px 0;
+}
+
+/* Validation errors */
+.application-container .error {
+  color: red;
+  font-size: 14px;
+}
+
+/* Progress bar */
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: #2876a8;
+  transition: width 0.3s ease;
+}
+
+/* Compact Navbar */
+.navbar {
+  padding: 14px 6%;
+}
+
+.navbar h2 {
+  font-size: 21px;
+}
+
+.navbar a {
+  margin-left: 18px;
+  font-size: 14px;
+}
+
+/* Compact Hero Section */
+.hero {
+  padding: 65px 20px;
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 16px;
+  margin-bottom: 22px;
+}
+
+/* Hero Buttons */
+.hero-buttons {
+  gap: 12px;
+}
+
+.hero button {
+  padding: 11px 22px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+/* Compact Application Form */
+.application-container {
+  max-width: 650px;
+  margin: 25px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+}
+
+.application-container h1 {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+
+.application-container h2 {
+  font-size: 21px;
+  margin-bottom: 15px;
+}
+
+.application-container input:not([type="file"]) {
+  padding: 11px;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.application-container button {
+  padding: 10px 20px;
+  margin: 8px 6px 5px 0;
+  font-size: 14px;
+  border-radius: 7px;
+}
+
+/* Progress Bar */
+.progress-bar {
+  height: 7px;
+  margin: 15px 0;
+}
+
+/* Features Section */
+.features {
+  padding: 40px 20px;
+}
+
+.features h2 {
+  font-size: 25px;
+  margin-bottom: 25px;
+}
+
+.feature-container {
+  gap: 18px;
+}
+
+.feature-card {
+  width: 250px;
+  padding: 22px;
+  border-radius: 10px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 14px;
+}
+
+/* Footer */
+footer {
+  padding: 15px;
+  font-size: 14px;
+}
+
+/* Mobile Friendly */
+@media (max-width: 600px) {
+  .hero {
+    padding: 50px 15px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-buttons button {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .application-container {
+    margin: 15px;
+    padding: 18px;
+  }
+
+  .application-container h1 {
+    font-size: 23px;
+  }
+
+  .application-container h2 {
+    font-size: 19px;
+  }
+
+  .navbar {
+    padding: 12px 15px;
+  }
+
+  .navbar h2 {
+    font-size: 19px;
+  }
+
+  .features {
+    padding: 30px 15px;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 320px;
+  }
+}
