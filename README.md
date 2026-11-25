@@ -1,6 +1,6 @@
 Ezitech Internship Application System
 
-A React-based internship application portal with a Supabase backend. The system is designed to allow applicants to submit applications, upload resumes, and track their application status while HR administrators manage applications securely.
+A React-based internship application portal built with React.js and Supabase. The portal allows applicants to submit internship applications through a multi-step form, upload PDF resumes, and securely store application information.
 
 1. Technologies Used
 
@@ -8,22 +8,41 @@ A React-based internship application portal with a Supabase backend. The system 
 - JavaScript
 - HTML
 - CSS
+- Yup (Form Validation)
 - Supabase
 - PostgreSQL
 - Supabase Storage
+- Supabase Edge Functions
 - Node.js
 - Git and GitHub
 
-2. Database Design
+2. Project Features
 
-The Supabase backend contains three main tables:
+- Multi-step application form
+- Personal information section
+- Education details section
+- Resume upload section
+- Progress bar
+- Client-side form validation using Yup
+- PDF resume validation
+- Maximum resume file size of 5MB
+- Application submission through Supabase Edge Function
+- Private resume storage
+- Application data saved in Supabase
+- Resume metadata stored in database
+- Submission success message
+- Duplicate email protection
+- IP-based submission rate-limiting mechanism
+
+3. Database Design
+
+The Supabase database contains the following main tables:
 
 Applicants
 
 Stores applicant information:
 
 - Applicant ID
-- User ID
 - Full Name
 - Email
 - Phone
@@ -54,47 +73,76 @@ Stores application status history:
 - Changed By
 - Changed At
 
-3. Entity Relationship Diagram (ERD)
+Submission Rate Limits
 
-Supabase Auth Users
-        |
-        | 1:1
-        |
-    Applicants
-        |
-        | 1:M
-        |
+Stores hashed IP identifiers and submission timestamps to support rate limiting.
+
+4. Entity Relationship Diagram (ERD)
+
+Applicants
+    |
+    | 1:M
+    |
    +----+----+
    |         |
  Resumes  Status Logs
 
 - One applicant can have multiple resume records.
 - One applicant can have multiple status history records.
-- An applicant account is linked to a Supabase Auth user.
 
-4. Supabase Storage
+5. Supabase Storage
 
-A private Storage bucket named "resumes" stores applicant resume PDFs.
+A private Storage bucket named "resumes" stores applicant resume PDF files.
 
-Files are organized into folders using the applicant's authenticated user ID.
+Resume files are uploaded through the Supabase Edge Function during application submission.
 
-5. Security and RLS Policies
+The bucket is private to help protect applicant documents.
 
-Row Level Security (RLS) is enabled on all three database tables.
+6. Application Submission
 
-- Applicants can view their own applicant records.
-- Applicants can submit their own applications.
-- Applicants can view and add their own resume metadata.
-- Applicants can view their own application status history.
-- Admins can manage all applicant, resume, and status records.
-- Admins can manage resume files.
-- Applicants can upload and download only their own resume files.
+The application form guides applicants through three steps:
 
-Admin access is identified using the "role" value in Supabase "app_metadata".
+1. Personal Information
+2. Education Details
+3. Resume Upload
 
-6. Sample Data
+After completing the form, applicants submit their information.
 
-A Node.js script generates at least 10 sample applicant records.
+The Supabase Edge Function:
+
+- Processes application submissions.
+- Validates submission-related conditions.
+- Inserts applicant information into the database.
+- Uploads the resume PDF to private Supabase Storage.
+- Saves resume metadata.
+- Returns a success response to the React application.
+
+7. Security
+
+Security features implemented include:
+
+- Row Level Security (RLS).
+- Private resume Storage bucket.
+- Supabase Edge Function for application submission.
+- Service-role key restricted to the server-side Edge Function.
+- Duplicate email protection.
+- IP-based rate-limiting mechanism.
+- PDF file validation.
+- Maximum file size validation.
+
+The Supabase service-role key must never be exposed in the React frontend or committed to GitHub.
+
+8. Rate Limiting
+
+A database-based rate-limiting mechanism is implemented to restrict submission attempts.
+
+The system is designed to allow a maximum of three submission attempts per IP address within one hour.
+
+IP addresses are hashed before being stored in the rate-limit table.
+
+9. Sample Data
+
+A Node.js script generates sample applicant records.
 
 Script location:
 
@@ -104,14 +152,18 @@ Run the script using:
 
 node scripts/seedApplicants.js
 
-The script uses local environment variables from ".env.seed". Never upload this file or the Supabase secret key to GitHub.
+The script uses local environment variables.
 
-7. Project Structure
+Never upload environment files containing secret keys to GitHub.
+
+10. Project Structure
 
 internship-portal/
 │
 ├── public/
 ├── src/
+│   ├── ApplicationForm.js
+│   └── ...
 ├── scripts/
 │   └── seedApplicants.js
 ├── supabase/
@@ -122,29 +174,58 @@ internship-portal/
 ├── package.json
 └── README.md
 
-8. Local Setup
+11. Local Setup
 
 1. Install Node.js.
-2. Clone the GitHub repository.
+2. Clone the repository.
 3. Open the project folder in VS Code.
 4. Install dependencies:
 
 npm install
 
-5. Configure your Supabase credentials in the appropriate local environment files.
+5. Configure the required local environment variables.
 6. Start the React application:
 
 npm start
 
-9. Task 1 Deliverables
+The application normally runs at:
 
-- Supabase database tables created.
-- Private resume Storage bucket configured.
-- Row Level Security policies created.
-- At least 10 sample applicant records generated.
-- SQL schema and policy files added to the repository.
-- README documentation updated.
+http://localhost:3001
 
-10. Security Note
+12. Task Deliverables
 
-Never commit ".env.seed", ".env.local", Supabase secret keys, or service-role keys to GitHub.
+Task 1: Database Design and Supabase Configuration
+
+- Supabase database schema.
+- Applicants, resumes, and status logs tables.
+- Row Level Security configuration.
+- Private resumes Storage bucket.
+- Sample applicant data.
+- SQL schema and policy files.
+
+Task 2: Multi-Step Application Form
+
+- Three-step application form.
+- Progress bar.
+- Personal information.
+- Education details.
+- Resume PDF upload.
+- Yup validation.
+- Supabase Edge Function integration.
+- Applicant information saved to database.
+- Resume uploaded to private Storage.
+- Resume metadata saved in database.
+- Submission success message.
+
+13. Security Note
+
+Never commit the following to GitHub:
+
+- ".env"
+- ".env.local"
+- ".env.seed"
+- Supabase service-role keys
+- Passwords
+- Private credentials
+
+Always keep sensitive credentials in secure environment variables.
